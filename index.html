@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+</head>
+<body>  
+    <input id="searchQuery" type="text" name="pokemonName">
+    <button id="search">Search</button>
+    <div id="pokedex">
+
+    </div>
+
+    <script>
+
+        /* live search  
+        $("#search").click(()=> {
+            let pokemonName = $("#searchQuery").val()
+            catchThemAll(pokemonName)
+        })
+        /* end live search  */
+
+        $("#searchQuery").on("input", ()=> {
+            let pokemonName = $("#searchQuery").val()
+            catchThemAll(pokemonName)
+        })
+
+        function catchThemAll(name){
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`)
+                .then((response)=> {
+
+                    $("#pokedex").append(`
+                        <div class="inline-block">
+                            <h1>${response.data.name}</h1>
+                            <img src="${response.data.sprites.front_default}" />
+                            <p>${response.data.types[0].type.name}</p>
+                        </div>    
+                        
+                    `)
+                })
+                .catch((err)=> {
+                    console.log(err)
+                })
+        }
+
+        /* always pikachu  
+        axios.get("https://pokeapi.co/api/v2/pokemon/pikachu/")
+            .then((response)=> {
+                $("#pokedex").append(`
+                    <img src="${response.data.sprites.front_default}" />
+                `)
+            })
+           end always pikachu  */ 
+    </script>
+
+    <style>
+    
+        .inline-block {
+            display: inline-block;
+        }
+        
+    </style>
+</body>
+</html>
